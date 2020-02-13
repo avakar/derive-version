@@ -1,0 +1,20 @@
+name: 'Derive Version'
+description: 'Given the VERSION file, compute a version number for a commit'
+inputs:
+  file:
+    description: 'The name of the file containing major.minor, defaults to "VERSION"'
+    default: VERSION
+  commit:
+    description: 'The commit for which to compute the version'
+    default: HEAD
+  deepen-by:
+    description: 'If the repo is too shallow, deepen it by this number of commits'
+    default: 100
+outputs:
+  patch:
+    description: 'The patch to be appended to major.minor'
+  version:
+    description: 'The full computed major.minor.patch'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
