@@ -1,0 +1,21 @@
+name: CI
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Derive version number
+      uses: ./
+      id: version
+      with:
+        file: VERSION
+    - uses: avakar/tag-and-release@8f4b627f03fe59381267d3925d39191e27f44236
+      if: github.ref == 'refs/heads/release'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.version.outputs.version }}
+        release_name: v${{ steps.version.outputs.version }}

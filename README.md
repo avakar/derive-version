@@ -14,15 +14,18 @@ Then use the action in your workflow.
 
     on: push
     jobs:
-      build:
+      release:
         runs-on: ubuntu-latest
         steps:
-          - uses: avakar/derive-version@master
+          - uses: avakar/derive-version@v1
             id: version
           - run: |
             mkdir _build
             cd _build
             cmake .. -DVERSION="${{ steps.version.outputs.version }}"
+          - uses: avakar/tag-and-release@v1
+            with:
+              tag_name: ${{ steps.version.outputs.version }}
 
 ### Inputs
 
