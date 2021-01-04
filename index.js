@@ -159,6 +159,7 @@ async function main() {
   core.info(`Version ${versionPrefix}.${depth}`);
   core.setOutput('version', `${versionPrefix}.${depth}`);
   core.setOutput('patch', `${depth}`);
+  core.setOutput('prefix', `${versionPrefix}`);
 }
 
 main().catch(function(error) {
